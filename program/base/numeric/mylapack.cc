@@ -3,8 +3,8 @@
 #include <iostream>
 
 extern "C" {
-#include <clapack/f2c.h>
-#include <clapack/clapack.h>
+#include "clapack/f2c.h"
+#include "clapack/clapack.h"
 };
 
 using namespace std;

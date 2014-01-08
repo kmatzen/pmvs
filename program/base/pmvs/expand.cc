@@ -194,7 +194,9 @@ float Cexpand::computeRadius(const Patch::Cpatch& patch) {
     exit (1);
   }
 #endif
-  nth_element(vftmp.begin(), vftmp.begin() + minnum - 1, vftmp.end());
+  // my GCC's nth_element is bugged right now (http://gcc.gnu.org/bugzilla/show_bug.cgi?id=58800)
+  // here's a slightly more expensive workaround
+  partial_sort(vftmp.begin(), vftmp.begin() + minnum - 1, vftmp.end());
   // Threshold is the second smallest value with some margin
   // ??? critical
   return (*(vftmp.begin() + minnum - 1)) * m_fm.m_csize;

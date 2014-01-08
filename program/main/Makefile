@@ -9,15 +9,14 @@ CXX = g++
 
 
 # Your INCLUDE path (e.g., -I/usr/include)
-YOURINCLUDEPATH =
+YOURINCLUDEPATH =-I/tmp/kmatzen/intel/mkl/include/intel64 -I/usr/local/intel/mkl/include/intel64 -I../include
 
 # Your LDLIBRARY path (e.g., -L/usr/lib)
-YOURLDLIBPATH =
+YOURLDLIBPATH =-L/tmp/kmatzen/intel/mkl/lib/intel64 -L/usr/local/intel/mkl/lib/intel64
 
-CXXFLAGS = -O2 -Wall -Wno-deprecated ${YOURINCLUDEPATH}
+CXXFLAGS = -O2 -g -Wall -Wno-deprecated ${YOURINCLUDEPATH} -DDEBUG
 
-LDFLAGS = ${YOURLDLIBPATH} -lXext -lX11 -ljpeg -lm -lpthread \
-	-llapack -lgsl -lgslcblas
+LDFLAGS = ${YOURLDLIBPATH} -lXext -lX11 -ljpeg -lgsl -lgslcblas -lpthread -lm -lmkl_rt
 
 ######################################################################
 all: pmvs2
@@ -27,7 +26,7 @@ pmvs2: pmvs2.o detectFeatures.o dog.o harris.o point.o detector.o \
 	patchOrganizerS.o seed.o point.o option.o \
 	image.o camera.o photoSetS.o patch.o photo.o \
 	mylapack.o
-	${CXX} ${LDFLAGS} -o $@ $^ ${LDFLAGS}
+	${CXX} -o $@ $^ ${LDFLAGS}
 
 %.o : ../base/pmvs/%.cc
 	$(CXX) -c $(CXXFLAGS) $<
