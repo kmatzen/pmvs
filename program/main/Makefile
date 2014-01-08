@@ -9,10 +9,10 @@ CXX = g++
 
 
 # Your INCLUDE path (e.g., -I/usr/include)
-YOURINCLUDEPATH =-I/tmp/kmatzen/intel/mkl/include/intel64 -I/usr/local/intel/mkl/include/intel64 -I../include
+YOURINCLUDEPATH =-I/tmp/kmatzen/intel/mkl/include/intel64 -I/usr/local/intel/mkl/include/intel64 -I../include -I/tmp/kmatzen/prefix/include
 
 # Your LDLIBRARY path (e.g., -L/usr/lib)
-YOURLDLIBPATH =-L/tmp/kmatzen/intel/mkl/lib/intel64 -L/usr/local/intel/mkl/lib/intel64
+YOURLDLIBPATH =-L/tmp/kmatzen/intel/mkl/lib/intel64 -L/usr/local/intel/mkl/lib/intel64 -L/tmp/kmatzen/prefix/lib
 
 CXXFLAGS = -O2 -g -Wall -Wno-deprecated ${YOURINCLUDEPATH} -DDEBUG
 
