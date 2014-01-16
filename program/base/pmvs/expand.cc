@@ -134,9 +134,9 @@ void Cexpand::findEmptyBlocks(const Ppatch& ppatch,
   const float radius = computeRadius(patch);
   const float radiuslow = radius / 6.0f;//2.0f;
   const float radiushigh = radius * 2.5f;//2.0f;//1.5f;
-  
+
   vector<Ppatch> neighbors;
-  m_fm.m_pos.findNeighbors(patch, neighbors, 1, 4.0f);//3.0f);
+  m_fm.m_pos.findNeighbors(patch, neighbors, 1, 4.0f, 1, 1);//3.0f);
 
   vector<Ppatch>::iterator bpatch = neighbors.begin();
   vector<Ppatch>::iterator epatch = neighbors.end();

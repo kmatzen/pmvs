@@ -6,6 +6,8 @@
 #include "findMatch.h"
 #include "filter.h"
 
+#define DEPTH_THRESHOLD 0.02
+
 using namespace Patch;
 using namespace PMVS3;
 using namespace std;
@@ -129,7 +131,7 @@ float Cfilter::computeGain(const Patch::Cpatch& patch, const int lock) {
     
     for (int j = 0; j < (int)m_fm.m_pos.m_pgrids[index][index2].size(); ++j) {
       const float bdepth = m_fm.m_pss.computeDepth(index, m_fm.m_pos.m_pgrids[index][index2][j]->m_coord);
-      if (pdepth < bdepth &&
+      if ((pdepth < (bdepth + DEPTH_THRESHOLD)) &&
           !m_fm.isNeighbor(patch, *m_fm.m_pos.m_pgrids[index][index2][j],
                            m_fm.m_neighborThreshold1)) {
         maxpressure = max(maxpressure,
@@ -193,7 +195,7 @@ void Cfilter::filterOutsideThread(void) {
       
       for (int j = 0; j < (int)m_fm.m_pos.m_pgrids[index][index2].size(); ++j) {
         const float bdepth = m_fm.m_pss.computeDepth(index, m_fm.m_pos.m_pgrids[index][index2][j]->m_coord);
-	if (pdepth < bdepth &&
+	if ((pdepth < (bdepth + DEPTH_THRESHOLD)) &&
             !m_fm.isNeighbor(*ppatch, *m_fm.m_pos.m_pgrids[index][index2][j],
                              m_fm.m_neighborThreshold1)) {
 	  maxpressure = max(maxpressure,
@@ -326,16 +328,16 @@ void Cfilter::filterExactThread(void) {
           
 	  int safe = 0;
 
-	  if (m_fm.m_pos.isVisible(patch, image, x, y, m_fm.m_neighborThreshold1, 0))
+	  if (m_fm.m_pos.isVisible(patch, image, x, y, 5*m_fm.m_neighborThreshold1, 0))
 	    safe = 1;
 	  // use 4 neighbors?
-	  else if (0 < x && m_fm.m_pos.isVisible(patch, image, x - 1, y, m_fm.m_neighborThreshold1, 0))
+	  else if (0 < x && m_fm.m_pos.isVisible(patch, image, x - 1, y, 5*m_fm.m_neighborThreshold1, 0))
 	    safe = 1;
-	  else if (x < w - 1 && m_fm.m_pos.isVisible(patch, image, x + 1, y, m_fm.m_neighborThreshold1, 0))
+	  else if (x < w - 1 && m_fm.m_pos.isVisible(patch, image, x + 1, y, 5*m_fm.m_neighborThreshold1, 0))
 	    safe = 1;
-	  else if (0 < y && m_fm.m_pos.isVisible(patch, image, x, y - 1, m_fm.m_neighborThreshold1, 0))
+	  else if (0 < y && m_fm.m_pos.isVisible(patch, image, x, y - 1, 5*m_fm.m_neighborThreshold1, 0))
 	    safe = 1;
-	  else if (y < h - 1 && m_fm.m_pos.isVisible(patch, image, x, y + 1, m_fm.m_neighborThreshold1, 0))
+	  else if (y < h - 1 && m_fm.m_pos.isVisible(patch, image, x, y + 1, 5*m_fm.m_neighborThreshold1, 0))
 	    safe = 1;
 	
 	  if (safe) {

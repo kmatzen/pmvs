@@ -614,6 +614,7 @@ void CpatchOrganizerS::findNeighbors(const Patch::Cpatch& patch,
             neighbors.push_back(*bpatch);
           ++bpatch;
         }
+#if 0
         bpatch = m_fm.m_pos.m_vpgrids[image][index].begin();
         epatch = m_fm.m_pos.m_vpgrids[image][index].end();
         while (bpatch != epatch) {
@@ -623,6 +624,7 @@ void CpatchOrganizerS::findNeighbors(const Patch::Cpatch& patch,
             neighbors.push_back(*bpatch);
           ++bpatch;
         }
+#endif
       }
     }
     if (lock)

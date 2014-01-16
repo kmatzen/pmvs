@@ -14,7 +14,7 @@ YOURINCLUDEPATH =-I/tmp/kmatzen/intel/mkl/include/intel64 -I/usr/local/intel/mkl
 # Your LDLIBRARY path (e.g., -L/usr/lib)
 YOURLDLIBPATH =-L/tmp/kmatzen/intel/mkl/lib/intel64 -L/usr/local/intel/mkl/lib/intel64
 
-CXXFLAGS = -O2 -g -Wall -Wno-deprecated ${YOURINCLUDEPATH} -DDEBUG
+CXXFLAGS = -O3 -g -Wall -Wno-deprecated ${YOURINCLUDEPATH} -DDEBUG
 
 LDFLAGS = ${YOURLDLIBPATH} -lXext -lX11 -ljpeg -lgsl -lgslcblas -lpthread -lm -lmkl_rt
 
